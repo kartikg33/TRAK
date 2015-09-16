@@ -37,7 +37,7 @@ public:
         trakTitle->setColour(juce::Label::textColourId, Colour(252,154,0));
         trakTitle->setJustificationType (Justification::centred);
         trakTitle->setEditable (false, false, false);
-        trakTitle->setFont(Font ("Sukhumvi Set", 30.00f, Font::plain));
+        trakTitle->setFont(Font ("Century Gothic", 30.00f, Font::plain));
         trakTitle->setBounds((getWidth()/2)-(100/2), getHeight()-50, 100, 50);
         
         addAndMakeVisible (listenButton = new TextButton("TRAK"));
@@ -57,7 +57,7 @@ public:
         description->setColour(juce::Label::textColourId, Colour(6,111,236));
         description->setJustificationType (Justification::centred);
         description->setEditable (false, false, false);
-        description->setFont(Font ("Century Gothic", 30.00f, Font::plain));
+        description->setFont(Font ("Century Gothic", 20.00f, Font::plain));
         description->setBounds(listenButton->getX()-(500/2)+50, listenButton->getY()+100, 500, 50);
     }
 
@@ -108,7 +108,8 @@ public:
         // You can add your drawing code here!
         
         //background gradient
-        g.setGradientFill(ColourGradient(Colour(3, 24, 50), 400, 0, Colour(0, 0, 0), 400, 600, false));
+        //g.setGradientFill(ColourGradient(Colour(3, 24, 50), 400, 0, Colour(0, 0, 0), 400, 600, false));
+        g.setGradientFill(ColourGradient(Colour(0,0,0), getWidth()/2, 0, Colour(3, 24, 50), getWidth()/2, getHeight(), false));
         g.fillAll();
         
         //corner lines
@@ -131,6 +132,10 @@ public:
         g.setColour(Colour(252,154,0));
         g.strokePath(edge, PathStrokeType(2.0f));
         
+        //object positions
+        trakTitle->setBounds((getWidth()/2)-(100/2), getHeight()-50, 100, 50);
+        listenButton->setBounds((getWidth()/2)-(100/2), (getHeight()/2)-(100/(1+numObjs)), 100, 100);
+        description->setBounds(listenButton->getX()-(500/2)+50, listenButton->getY()+100, 500, 50);
         
         
     }
@@ -141,9 +146,9 @@ public:
         // If you add any child components, this is where you should
         // update their positions.
         
-        //object positions
-        //listenButton->setBounds((getWidth()/2)-(100/2), (getHeight()/2)-(100/2), 100, 100);
-        //description->setBounds(listenButton->getX()-(500/2)+50, listenButton->getY()+100, 500, 50);
+       
+        if(stripOne!=nullptr)
+            stripOne->setBounds(10, 60, getWidth()-10, 200);
 
     }
     
@@ -162,6 +167,7 @@ public:
             if(listened){
                 addAndMakeVisible(stripOne = new Strip());
                 stripOne->setBounds(10, 60, getWidth()-10, 200);
+                numObjs = 2;
             }
             //[/UserButtonCode_listenButton]
         }
@@ -174,7 +180,7 @@ public:
         if(listened){
             description->setText("click to track singing or humming", dontSendNotification);
         } else {
-            description->setText("listening...", dontSendNotification);
+            description->setText("tracking", dontSendNotification);
         }
         
     
@@ -190,6 +196,7 @@ private:
     ScopedPointer<TextButton> listenButton;
     ScopedPointer<Strip> stripOne;
     bool listened = true;
+    int numObjs = 1;
     
     
 
