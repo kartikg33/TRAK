@@ -26,13 +26,24 @@ public:
     //==============================================================================
     MainContentComponent()
     {
-        setSize (800, 600);
+        
+        setSize (800,600);
 
         // specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
         
+        addAndMakeVisible(trakTitle = new Label());
+        trakTitle->setText("TRAK", dontSendNotification);
+        trakTitle->setColour(juce::Label::textColourId, Colour(252,154,0));
+        trakTitle->setJustificationType (Justification::centred);
+        trakTitle->setEditable (false, false, false);
+        trakTitle->setFont(Font ("Sukhumvi Set", 30.00f, Font::plain));
+        trakTitle->setBounds((getWidth()/2)-(100/2), getHeight()-50, 100, 50);
+        
         addAndMakeVisible (listenButton = new TextButton("TRAK"));
         listenButton->addListener (this);
+        listenButton->setBounds((getWidth()/2)-(100/2), (getHeight()/2)-(100/2), 100, 100);
+
         
         /*
         listenButton->setImages (false, true, true,
@@ -43,10 +54,11 @@ public:
         
         addAndMakeVisible(description = new Label());
         description->setText("click to track singing or humming", dontSendNotification);
-        description->setColour(juce::Label::textColourId, Colour(6,120,153));
+        description->setColour(juce::Label::textColourId, Colour(6,111,236));
         description->setJustificationType (Justification::centred);
         description->setEditable (false, false, false);
         description->setFont(Font ("Century Gothic", 30.00f, Font::plain));
+        description->setBounds(listenButton->getX()-(500/2)+50, listenButton->getY()+100, 500, 50);
     }
 
     ~MainContentComponent()
@@ -96,7 +108,7 @@ public:
         // You can add your drawing code here!
         
         //background gradient
-        g.setGradientFill(ColourGradient(Colour(39, 54, 59), 400, 0, Colour(0, 0, 0), 400, 600, false));
+        g.setGradientFill(ColourGradient(Colour(3, 24, 50), 400, 0, Colour(0, 0, 0), 400, 600, false));
         g.fillAll();
         
         //corner lines
@@ -106,24 +118,20 @@ public:
         edge.startNewSubPath(margin, distance);
         edge.lineTo(distance, margin);
         edge.closeSubPath();
-        edge.startNewSubPath(this->getWidth()-margin, distance);
-        edge.lineTo(this->getWidth()-distance, margin);
+        edge.startNewSubPath(getWidth()-margin, distance);
+        edge.lineTo(getWidth()-distance, margin);
         edge.closeSubPath();
-        edge.startNewSubPath(margin, this->getHeight()-distance);
-        edge.lineTo(distance, this->getHeight()-margin);
+        edge.startNewSubPath(margin, getHeight()-distance);
+        edge.lineTo(distance, getHeight()-margin);
         edge.closeSubPath();
-        edge.startNewSubPath(this->getWidth()-margin, this->getHeight()-distance);
-        edge.lineTo(this->getWidth()-distance, this->getHeight()-margin);
+        edge.startNewSubPath(getWidth()-margin, getHeight()-distance);
+        edge.lineTo(getWidth()-distance, getHeight()-margin);
         edge.closeSubPath();
         
-        g.setColour(Colour(208,122,35));
-        //g.setColour(Colour(246, 125, 1));
+        g.setColour(Colour(252,154,0));
         g.strokePath(edge, PathStrokeType(2.0f));
         
-        //object positions
-    
-        listenButton->setBounds((this->getWidth()/2)-(100/2), (this->getHeight()/2)-(100/2), 100, 100);
-        description->setBounds(listenButton->getX()-(500/2)+50, listenButton->getY()+100, 500, 50);
+        
         
     }
 
@@ -133,6 +141,9 @@ public:
         // If you add any child components, this is where you should
         // update their positions.
         
+        //object positions
+        //listenButton->setBounds((getWidth()/2)-(100/2), (getHeight()/2)-(100/2), 100, 100);
+        //description->setBounds(listenButton->getX()-(500/2)+50, listenButton->getY()+100, 500, 50);
 
     }
     
@@ -150,7 +161,7 @@ public:
             listening();
             if(listened){
                 addAndMakeVisible(stripOne = new Strip());
-                stripOne->setBounds(10, 60, this->getWidth()-10, 200);
+                stripOne->setBounds(10, 60, getWidth()-10, 200);
             }
             //[/UserButtonCode_listenButton]
         }
@@ -174,6 +185,7 @@ private:
     //==============================================================================
 
     // Your private member variables go here...
+    ScopedPointer<Label> trakTitle;
     ScopedPointer<Label> description;
     ScopedPointer<TextButton> listenButton;
     ScopedPointer<Strip> stripOne;

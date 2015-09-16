@@ -78,13 +78,13 @@ void Strip::paint (Graphics& g)
                                        false));
     g.fillPath (internalPath1);
 
-    g.setColour (Colour (0xff196a81));
+    g.setColour (Colour (0xff062f60));
     g.fillRect (0, 0, 800, 1);
 
-    g.setColour (Colour (0xff196a81));
+    g.setColour (Colour (0xff062f60));
     g.fillRect (0, 150, 800, 1);
 
-    g.setColour (Colour (0xff196a81));
+    g.setColour (Colour (0xff062f60));
     g.fillRect (200, 0, 1, 150);
 
     //[UserPaint] Add your own custom painting code here..
@@ -143,9 +143,9 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ffffff">
     <PATH pos="0 0 100 100" fill="linear: 50 50, 100 100, 0=ffff0000, 1=ff008000"
           hasStroke="0" nonZeroWinding="0">s 366 320 x</PATH>
-    <RECT pos="0 0 800 1" fill="solid: ff196a81" hasStroke="0"/>
-    <RECT pos="0 150 800 1" fill="solid: ff196a81" hasStroke="0"/>
-    <RECT pos="200 0 1 150" fill="solid: ff196a81" hasStroke="0"/>
+    <RECT pos="0 0 800 1" fill="solid: ff062f60" hasStroke="0"/>
+    <RECT pos="0 150 800 1" fill="solid: ff062f60" hasStroke="0"/>
+    <RECT pos="200 0 1 150" fill="solid: ff062f60" hasStroke="0"/>
   </BACKGROUND>
   <COMBOBOX name="new combo box" id="35af25f0109ffbe0" memberName="comboBox"
             virtualName="" explicitFocusOrder="0" pos="100c 70c 150 24" editable="0"
