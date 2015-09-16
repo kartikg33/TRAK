@@ -33,7 +33,6 @@ public:
         
         addAndMakeVisible (listenButton = new TextButton("TRAK"));
         listenButton->addListener (this);
-        listenButton->setBounds(400-50, 275-50, 100, 100);
         
         /*
         listenButton->setImages (false, true, true,
@@ -43,9 +42,8 @@ public:
          */
         
         addAndMakeVisible(description = new Label());
-        description->setBounds(400-250, 375-25, 500, 50);
         description->setText("click to track singing or humming", dontSendNotification);
-        description->setColour(juce::Label::textColourId, Colours::white);
+        description->setColour(juce::Label::textColourId, Colour(6,120,153));
         description->setJustificationType (Justification::centred);
         description->setEditable (false, false, false);
         description->setFont(Font ("Century Gothic", 30.00f, Font::plain));
@@ -54,8 +52,9 @@ public:
     ~MainContentComponent()
     {
         shutdownAudio();
-        listenButton = nullptr;
+        
         stripOne = nullptr;
+        listenButton = nullptr;
         description = nullptr;
     }
 
@@ -94,10 +93,38 @@ public:
     void paint (Graphics& g) override
     {
         // (Our component is opaque, so we must completely fill the background with a solid colour)
-        g.fillAll (Colours::black);
-
-
         // You can add your drawing code here!
+        
+        //background gradient
+        g.setGradientFill(ColourGradient(Colour(39, 54, 59), 400, 0, Colour(0, 0, 0), 400, 600, false));
+        g.fillAll();
+        
+        //corner lines
+        int margin = 10;
+        int distance = 50;
+        Path edge;
+        edge.startNewSubPath(margin, distance);
+        edge.lineTo(distance, margin);
+        edge.closeSubPath();
+        edge.startNewSubPath(this->getWidth()-margin, distance);
+        edge.lineTo(this->getWidth()-distance, margin);
+        edge.closeSubPath();
+        edge.startNewSubPath(margin, this->getHeight()-distance);
+        edge.lineTo(distance, this->getHeight()-margin);
+        edge.closeSubPath();
+        edge.startNewSubPath(this->getWidth()-margin, this->getHeight()-distance);
+        edge.lineTo(this->getWidth()-distance, this->getHeight()-margin);
+        edge.closeSubPath();
+        
+        g.setColour(Colour(208,122,35));
+        //g.setColour(Colour(246, 125, 1));
+        g.strokePath(edge, PathStrokeType(2.0f));
+        
+        //object positions
+    
+        listenButton->setBounds((this->getWidth()/2)-(100/2), (this->getHeight()/2)-(100/2), 100, 100);
+        description->setBounds(listenButton->getX()-(500/2)+50, listenButton->getY()+100, 500, 50);
+        
     }
 
     void resized() override
@@ -105,6 +132,7 @@ public:
         // This is called when the MainContentComponent is resized.
         // If you add any child components, this is where you should
         // update their positions.
+        
 
     }
     
@@ -122,7 +150,7 @@ public:
             listening();
             if(listened){
                 addAndMakeVisible(stripOne = new Strip());
-                stripOne->setBounds(0, 0, 800, 200);
+                stripOne->setBounds(10, 60, this->getWidth()-10, 200);
             }
             //[/UserButtonCode_listenButton]
         }
